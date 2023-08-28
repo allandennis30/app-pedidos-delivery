@@ -41,4 +41,7 @@ class UsuarioModel {
     OBS. o nome do arquivo e da classe devem ser o mesmo.
 
     depois de tudo isso feito, basta rodar o comando flutter packages pub run build_runner build
+    
+    o próximo passo é o usuario_isar_model.dart
+    
     */

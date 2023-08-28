@@ -1,48 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:isar/isar.dart';
+import 'package:path_provider/path_provider.dart';
 
-void main() {
-  runApp(const PediJa());
+import 'models/usuario_isar_model.dart';
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Obtenha o diretório de aplicativos onde o banco de dados será armazenado.
+  final dir = await getApplicationDocumentsDirectory();
+  final isar = await Isar.open(
+    [UsuarioIsarModelSchema],
+    directory: dir.path,
+  );
+
+  runApp(MyApp(isar));
 }
 
-class PediJa extends StatelessWidget {
-  const PediJa({super.key});
+class MyApp extends StatelessWidget {
+  final Isar isar;
+
+  MyApp(this.isar);
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: const HomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
-}
-
-class HomePage extends StatefulWidget {
-  const HomePage({super.key, required this.title});
-
-  final String title;
-
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
-      ),
-      body: const Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[],
-        ),
-      ),
+    return const MaterialApp(
+      title: 'My App',
     );
   }
 }
